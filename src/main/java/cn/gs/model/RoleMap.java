@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.io.Serializable;
+import java.util.Date;
+
 //权限与用户关联表
 @Data
 @NoArgsConstructor
@@ -17,4 +19,7 @@ public class RoleMap implements Serializable {
     private Integer id;
     private Integer userId;
     private Integer roleId;
+    private Date createTime;
+    private Date updateTime;
+    private Integer deleted;
 }

@@ -4,6 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.gs.mapper.RoleMapper">
     <select id="queryListById" resultType="role">
-        select * from sys_role left join user_role_map on sys_role.id=user_role_map.role_id where user_role_map.user_id=#{id}
+        select * from sys_role left join user_role_map on sys_role.id=user_role_map.role_id where user_role_map.user_id=#{id} and user_role_map.deleted=0
     </select>
 </mapper>

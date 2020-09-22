@@ -1,6 +1,7 @@
 package cn.gs.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -9,6 +10,9 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
 //用户表
 @Data
 @NoArgsConstructor
@@ -25,4 +29,6 @@ public class User implements Serializable {
     private Date createTime;
     private Date updateTime;
     private Integer deleted;
+    @TableField(exist = false)
+    private List<RoleMap> roleMaps;
 }

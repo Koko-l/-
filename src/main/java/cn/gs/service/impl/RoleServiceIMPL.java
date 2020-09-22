@@ -13,7 +13,6 @@ public class RoleServiceIMPL implements RoleService {
     //获取权限列表
     @Override
     public List<Role> queryListById(int id) {
-        QueryWrapper<Role> queryWrapper = new QueryWrapper<>();
         return roleMapper.queryListById(id);
     }
     @Autowired

@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html class="x-admin-sm">
+<html class="x-admin-sm" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.thymeleaf.org/thymeleaf-extras-shiro">
 <head>
     <meta charset="UTF-8">
     <title></title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
-    <link rel="stylesheet" href="./css/font.css">
-    <link rel="stylesheet" href="./css/xadmin.css">
-    <script src="./lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <link rel="stylesheet" th:href="@{/css/font.css}">
+    <link rel="stylesheet" th:href="@{/css/xadmin.css}">
+    <script th:src="@{/lib/layui/layui.js}" charset="utf-8"></script>
+    <script type="text/javascript" th:src="@{/js/xadmin.js}"></script>
 </head>
 <body>
 <div class="x-nav">
@@ -45,21 +46,20 @@
                             <th>操作</th>
                         </thead>
                         <tbody>
-
-                        <tr>
-                            <td>admin</td>
-                            <td>18925139194</td>
+                        <tr th:each="jl,iterStat:${jurisdiction_list}">
+                            <td th:text="${jl.name}"></td>
+                            <td th:text="${jl.username}"></td>
                             <td>
                                 <div class="layui-input-block">
-                                <input name="msg_hold" lay-skin="primary" type="checkbox" title="申请回复">
-                                <input name="class_hold" lay-skin="primary" type="checkbox" title="教室管理">
-                                <input name="order_hold" lay-skin="primary" type="checkbox" title="订单管理">
-                                <input name="history_hold" lay-skin="primary" type="checkbox" title="历史记录">
-                                <input name="user_hold" lay-skin="primary" type="checkbox" title="用户管理">
+                                <input th:checked="${jl.getRoleMaps().get(0).getDeleted()==0}" name="msg_hold" lay-skin="primary" type="checkbox" title="申请回复">
+                                <input th:checked="${jl.getRoleMaps().get(1).getDeleted()==0}" name="class_hold" lay-skin="primary" type="checkbox" title="教室管理">
+                                <input th:checked="${jl.getRoleMaps().get(2).getDeleted()==0}" name="order_hold" lay-skin="primary" type="checkbox" title="订单管理">
+                                <input th:checked="${jl.getRoleMaps().get(3).getDeleted()==0}" name="history_hold" lay-skin="primary" type="checkbox" title="历史记录">
+                                <input th:checked="${jl.getRoleMaps().get(4).getDeleted()==0}" name="user_hold" lay-skin="primary" type="checkbox" title="用户管理">
                                 </div>
                             </td>
                             <td>
-                                <button class="layui-btn" onclick="update(this)">确认修改</button>
+                                <button class="layui-btn" onclick="update(this,3)">确认修改</button>
                             </td>
                         </tr>
                         </tbody>
@@ -83,29 +83,51 @@
 </div>
 </body>
 <script>
-   function update(obj) {
-       let ids=[];
+   function update(obj,id) {
+       let msg_hold_state=0;
+       let class_hold_state=0;
+       let order_hold_state=0;
+       let history_hold_state=0;
+       let user_hold_state=0;
        let msg_hold = $(obj).parents("tr").find("[name=msg_hold]");
        let class_hold = $(obj).parents("tr").find("[name=class_hold]");
        let order_hold = $(obj).parents("tr").find("[name=order_hold]");
        let history_hold = $(obj).parents("tr").find("[name=history_hold]");
        let user_hold = $(obj).parents("tr").find("[name=user_hold]");
        if(msg_hold.prop("checked")){
-           ids.push("1");
+           msg_hold_state=0;
        }
        if(class_hold.prop("checked")){
-           ids.push("2");
+           class_hold_state=0;
        }
        if(order_hold.prop("checked")){
-           ids.push("3");
+           order_hold_state=0;
        }
        if(history_hold.prop("checked")){
-           ids.push("4");
+           history_hold_state=0;
        }
        if(user_hold.prop("checked")){
-           ids.push("5");
+           user_hold_state=0;
        }
-       console.log(ids);
+
+       $.post(
+           "/roleMap/update",
+           {
+               "msg_hold":msg_hold_state,
+               "class_hold":class_hold_state,
+               "order_hold":order_hold_state,
+               "history_hold":history_hold_state,
+               "user_hold":user_hold_state,
+               "id":id
+           },
+           function (response) {
+                if(response){
+                    layer.msg('修改成功', {icon: 1});
+                }else{
+                    layer.msg('修改失败', {icon: 4});
+                }
+           }
+       )
    }
 </script>
 <script>

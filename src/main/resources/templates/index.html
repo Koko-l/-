@@ -51,7 +51,7 @@
                             <i class="iconfont nav_right">&#xe697;</i></a>
                         <ul class="sub-menu">
                             <li>
-                                <a onclick="xadmin.add_tab('统计页面','welcome1.html')">
+                                <a onclick="xadmin.add_tab('角色管理','/roleMap/findAll')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>角色管理</cite></a>
                             </li>
@@ -68,27 +68,27 @@
                             <cite>管理员模块</cite>
                             <i class="iconfont nav_right">&#xe697;</i></a>
                         <ul class="sub-menu">
-                            <li>
+                            <li shiro:hasAnyPermissions="super_admin,msg_hold">
                                 <a onclick="xadmin.add_tab('订单列表','order-list.html')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>申请记录</cite></a>
                             </li>
-                            <li>
+                            <li shiro:hasAnyPermissions="super_admin,class_hold">
                                 <a onclick="xadmin.add_tab('订单列表1','order-list1.html')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>教室管理</cite></a>
                             </li>
-                            <li>
+                            <li shiro:hasAnyPermissions="super_admin,order_hold">
                                 <a onclick="xadmin.add_tab('订单列表1','order-list1.html')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>订单管理</cite></a>
                             </li>
-                            <li>
+                            <li shiro:hasAnyPermissions="super_admin,history_hold">
                                 <a onclick="xadmin.add_tab('订单列表1','order-list1.html')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>历史记录</cite></a>
                             </li>
-                            <li>
+                            <li shiro:hasAnyPermissions="super_admin,user_hold">
                                 <a onclick="xadmin.add_tab('订单列表1','order-list1.html')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>用户管理</cite></a>

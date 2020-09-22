@@ -2,8 +2,8 @@ package cn.gs.config;
 
 import cn.gs.model.Role;
 import cn.gs.model.User;
-import cn.gs.service.impl.LoginServiceIMPL;
-import cn.gs.service.impl.RoleServiceIMPL;
+import cn.gs.service.LoginService;
+import cn.gs.service.RoleService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -47,7 +47,7 @@ public class UserRealm extends AuthorizingRealm {
         return new SimpleAuthenticationInfo(user,user.getPassword(),"");
     }
     @Autowired
-    private LoginServiceIMPL loginServiceIMPL;
+    private LoginService loginServiceIMPL;
     @Autowired
-    private RoleServiceIMPL roleServiceIMPL;
+    private RoleService roleServiceIMPL;
 }

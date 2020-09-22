@@ -1,6 +1,7 @@
 package cn.gs;
 
-import cn.gs.mapper.RoleMapper;
+import cn.gs.mapper.UserMapper;
+import cn.gs.service.RoleMapService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,10 +9,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class DemoApplicationTests {
 @Autowired
-    RoleMapper roleMapper;
+    RoleMapService roleMapService;
+@Autowired
+    UserMapper userMapper;
     @Test
     void contextLoads() {
-        roleMapper.queryListById(1);
+        System.out.println(userMapper.roleFindAll());
     }
 
 }

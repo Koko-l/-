@@ -1,10 +1,12 @@
 package cn.gs.mapper;
-
 import cn.gs.model.User;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
-@Repository
+
+import java.util.List;
+
 @Mapper
-public interface LoginMapper extends BaseMapper<User> {
+@Repository
+public interface UserMapper {
+    public List<User> roleFindAll();
 }
