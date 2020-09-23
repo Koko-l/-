@@ -20,6 +20,9 @@ public class LoginController {
     //登录
     @RequestMapping("/login")
     public String login(@RequestParam(name = "username",required = false,defaultValue = "0")String username, @RequestParam(name = "password",required = false,defaultValue = "0") String password, HttpServletRequest request, Model model){
+        if(username.equals("0")){
+            return "login";
+        }
         Subject subject = SecurityUtils.getSubject();
         if(subject.isAuthenticated()){
             return "index";

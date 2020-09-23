@@ -29,7 +29,7 @@
                 <div class="layui-card-body ">
                     <form class="layui-form layui-col-space5">
                         <div class="layui-inline layui-show-xs-block">
-                            <input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                            <input type="text" name="search"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
                         </div>
                         <div class="layui-inline layui-show-xs-block">
                             <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
@@ -40,6 +40,7 @@
                     <table class="layui-table layui-form">
                         <thead>
                         <tr>
+                            <th hidden>ID</th>
                             <th>账号</th>
                             <th>姓名</th>
                             <th>权限</th>
@@ -47,8 +48,9 @@
                         </thead>
                         <tbody>
                         <tr th:each="jl,iterStat:${jurisdiction_list}">
-                            <td th:text="${jl.name}"></td>
+                            <td class="jl_id" th:text="${jl.id}" hidden></td>
                             <td th:text="${jl.username}"></td>
+                            <td th:text="${jl.name}"></td>
                             <td>
                                 <div class="layui-input-block">
                                 <input th:checked="${jl.getRoleMaps().get(0).getDeleted()==0}" name="msg_hold" lay-skin="primary" type="checkbox" title="申请回复">
@@ -59,7 +61,7 @@
                                 </div>
                             </td>
                             <td>
-                                <button class="layui-btn" onclick="update(this,3)">确认修改</button>
+                                  <button class="layui-btn" onclick="update(this)">确认修改</button>
                             </td>
                         </tr>
                         </tbody>
@@ -70,9 +72,9 @@
                         <div>
                             <a class="prev" href="">&lt;&lt;</a>
                             <a class="num" href="">1</a>
-                            <span class="current">2</span>
+                            <a class="current">2</a>
                             <a class="num" href="">3</a>
-                            <a class="num" href="">489</a>
+                            <a class="num" href="#">...</a>
                             <a class="next" href="">&gt;&gt;</a>
                         </div>
                     </div>
@@ -83,17 +85,18 @@
 </div>
 </body>
 <script>
-   function update(obj,id) {
-       let msg_hold_state=0;
-       let class_hold_state=0;
-       let order_hold_state=0;
-       let history_hold_state=0;
-       let user_hold_state=0;
+   function update(obj) {
+       let msg_hold_state=1;
+       let class_hold_state=1;
+       let order_hold_state=1;
+       let history_hold_state=1;
+       let user_hold_state=1;
        let msg_hold = $(obj).parents("tr").find("[name=msg_hold]");
        let class_hold = $(obj).parents("tr").find("[name=class_hold]");
        let order_hold = $(obj).parents("tr").find("[name=order_hold]");
        let history_hold = $(obj).parents("tr").find("[name=history_hold]");
        let user_hold = $(obj).parents("tr").find("[name=user_hold]");
+       let id = $(obj).parents("tr").find(".jl_id").text();
        if(msg_hold.prop("checked")){
            msg_hold_state=0;
        }
