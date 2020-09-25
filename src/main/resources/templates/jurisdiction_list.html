@@ -27,7 +27,7 @@
         <div class="layui-col-md12">
             <div class="layui-card">
                 <div class="layui-card-body ">
-                    <form class="layui-form layui-col-space5">
+                    <form class="layui-form layui-col-space5" action="/roleMap/findAll">
                         <div class="layui-inline layui-show-xs-block">
                             <input type="text" name="search"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
                         </div>
@@ -70,12 +70,11 @@
                 <div class="layui-card-body ">
                     <div class="page">
                         <div>
-                            <a class="prev" href="">&lt;&lt;</a>
-                            <a class="num" href="">1</a>
-                            <a class="current">2</a>
-                            <a class="num" href="">3</a>
-                            <a class="num" href="#">...</a>
-                            <a class="next" href="">&gt;&gt;</a>
+                            <a th:if="${current} ne 1" class="prev" th:href="@{/roleMap/findAll(current=${prev},search=${search})}">&lt;&lt;</a>
+                            <span th:text="${current}" class="current" href="#"></span>
+                            <a th:text="${current}+1" th:if="${MaxPage} gt 1 and ${current}+1 le ${MaxPage}" class="current" th:href="@{/roleMap/findAll(current=${current}+1,search=${search})}"></a>
+                            <a th:text="${current}+2" th:if="${MaxPage} gt 2 and ${current}+2 le ${MaxPage}" class="num" th:href="@{/roleMap/findAll(current=${current}+2,search=${search})}"></a>
+                            <a th:if="${current} ne ${MaxPage} and ${MaxPage} ne 0" class="next" th:href="@{/roleMap/findAll(current=${next},search=${search})}">&gt;&gt;</a>
                         </div>
                     </div>
                 </div>

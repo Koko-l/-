@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public class RoleServiceIMPL implements RoleService {
+public class RoleServiceImpl implements RoleService {
     //获取权限列表
     @Override
     public List<Role> queryListById(int id) {

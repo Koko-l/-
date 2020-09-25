@@ -1,8 +1,11 @@
 package cn.gs.controller;
 
 import cn.gs.model.RoleMap;
+import cn.gs.model.User;
 import cn.gs.service.RoleMapService;
 import cn.gs.service.UserService;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +18,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/roleMap")
 public class RoleMapController {
+    private final int SIZE=1*5;
     @RequestMapping("/update")
     @ResponseBody
     public boolean updateRoleMap(HttpServletRequest request){
@@ -49,8 +53,41 @@ public class RoleMapController {
         return false;
     }
     @RequestMapping("/findAll")
-    public String queryRoleMap(Model model){
-        model.addAttribute("jurisdiction_list",userService.roleFindAll());
+    public String queryRoleMap(Model model,HttpServletRequest request){
+        //模糊查询
+        String search = request.getParameter("search");
+        //处理没有传search的情况
+        if(search==null){
+            search="";
+        }
+        String currentf = request.getParameter("current");
+        //当前页
+        int current = 1;
+        if(currentf!=null&&currentf!=""){
+            current = Integer.parseInt(currentf);
+        }
+        Page<User> page = new Page(current,SIZE);
+        IPage<User> result = userService.roleFindAll(page,search);
+        List<User> jurisdiction_list = result.getRecords();
+        model.addAttribute("jurisdiction_list",jurisdiction_list);
+        //获取最大页
+        int MaxPage = (int)result.getPages();
+        model.addAttribute("MaxPage",MaxPage);
+        //处理上一页
+        int prev = 1;
+        if(current>1){
+            prev=current-1;
+        }
+        //处理下一页
+        int next = MaxPage;
+        if(next<MaxPage){
+            next=current+1;
+        }
+        model.addAttribute("prev",prev);
+        model.addAttribute("current",current);
+        model.addAttribute("next",next);
+        //存一个search
+        model.addAttribute("search",search);
         return "jurisdiction_list";
     }
     @Autowired

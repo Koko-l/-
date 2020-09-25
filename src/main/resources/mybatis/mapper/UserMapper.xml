@@ -18,5 +18,6 @@
 		from sys_user u,user_role_map m
 		where u.id = m.user_id
 		and u.jurisdiction=1
+		and u.name like #{search}
 	</select>
 </mapper>

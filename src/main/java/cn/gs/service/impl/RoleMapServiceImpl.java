@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class RoleMapServiceIMPL extends ServiceImpl<RoleMapMapper,RoleMap> implements RoleMapService {
+public class RoleMapServiceImpl extends ServiceImpl<RoleMapMapper,RoleMap> implements RoleMapService {
 
     @Override
     public List<RoleMap> getRoleMapList(int id) {

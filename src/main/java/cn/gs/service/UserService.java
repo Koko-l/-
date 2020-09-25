@@ -1,11 +1,9 @@
 package cn.gs.service;
 
 import cn.gs.model.User;
-import org.springframework.stereotype.Service;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
-import java.util.List;
-
-@Service
 public interface UserService {
-    public List<User> roleFindAll();
+    IPage<User> roleFindAll(Page<User> page,String search);
 }

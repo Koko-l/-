@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 @Service
-public class LoginServiceIMPL implements LoginService {
+public class LoginServiceImpl implements LoginService {
     //获取登录认证需要的用户信息
     @Override
     public User queryOneByName(String username) {

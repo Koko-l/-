@@ -1,9 +1,20 @@
 spring:
   datasource:
+    type: com.zaxxer.hikari.HikariDataSource
     username: root
     password: qwer19980101
     url: jdbc:mysql://127.0.0.1:3306/graduation?useSSL=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      auto-commit: true
+      #连接超时时长
+      connection-timeout: 60000
+      #最大生命周期，0不过期
+      max-lifetime: 0
+      #最小空闲连接数
+      minimum-idle: 10
+      #最大连接数量
+      maximum-pool-size: 10
   thymeleaf:
     #缓冲的配置
     cache: false
